@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "memory-tempfile"
+version = "2.1.0"
+description = "Helper functions to identify and use paths on the OS (Linux-only for now) where RAM-based tempfiles can be created."
+authors = ["mbello <mbello@users.noreply.github.com>"]
+license = "CC0-1.0"
+readme = "README.md"
+repository = "https://github.com/mbello/memory-tempfile"
+homepage = "https://github.com/mbello/memory-tempfile"
+keywords = ['tempfile in RAM', 'tempfile in memory', 'file in memory', 'tempfs', 'ramdisk', '/dev/shm', '/run/user']
+
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
