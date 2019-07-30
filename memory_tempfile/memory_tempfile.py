@@ -90,19 +90,19 @@ class MemoryTempfile:
     def TemporaryDirectory(self, suffix=None, prefix=None, dir=None):
         return tempfile.TemporaryDirectory(suffix=suffix, prefix=prefix, dir=self.tempdir if not dir else dir)
     
-    def SpooledTemporaryFile(self, max_size=0, mode='w+b', buffering=None, encoding=None, newline=None,
+    def SpooledTemporaryFile(self, max_size=0, mode='w+b', buffering=-1, encoding=None, newline=None,
                              suffix=None, prefix=None, dir=None):
         return tempfile.SpooledTemporaryFile(max_size=max_size, mode=mode, buffering=buffering, encoding=encoding,
                                              newline=newline, suffix=suffix, prefix=prefix,
                                              dir=self.tempdir if not dir else dir)
 
-    def NamedTemporaryFile(self, mode='w+b', buffering=None, encoding=None, newline=None,
+    def NamedTemporaryFile(self, mode='w+b', buffering=-1, encoding=None, newline=None,
                            suffix=None, prefix=None, dir=None, delete=True):
         return tempfile.NamedTemporaryFile(mode=mode, buffering=buffering, encoding=encoding, newline=newline,
                                            suffix=suffix, prefix=prefix, dir=self.tempdir if not dir else dir,
                                            delete=delete)
     
-    def TemporaryFile(self, mode='w+b', buffering=None, encoding=None, newline=None,
+    def TemporaryFile(self, mode='w+b', buffering=-1, encoding=None, newline=None,
                       suffix=None, prefix=None, dir=None):
         return tempfile.TemporaryFile(mode=mode, buffering=buffering, encoding=encoding, newline=newline,
                                       suffix=suffix, prefix=prefix, dir=self.tempdir if not dir else dir)
