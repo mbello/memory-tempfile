@@ -20,7 +20,7 @@ class MemoryTempfile:
 
         self.tempdir = self.fallback
 
-        if platform.platform() == "Linux":
+        if platform.system() == "Linux":
             self.filesystem_types = filesystem_types if filesystem_types is not None else MEM_BASED_FS
             
             preferred_paths = [] if preferred_paths is None else preferred_paths
