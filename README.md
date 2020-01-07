@@ -38,10 +38,10 @@ Then, all methods available from tempfile stdlib are available through MemoryTem
 # The constructor:
 
 **Here is the list of accepted parameters:**
-- preferred_paths: list or str = None
-- remove_paths: list or str or bool = None
-- additional_paths: list or str = None
-- filesystem_types: list or str = None
+- preferred_paths: list = None
+- remove_paths: list or bool = None
+- additional_paths: list = None
+- filesystem_types: list = None
 - fallback: str or bool = None
 
 The path list that will be searched from first to last item will be constructed using the algorith:
