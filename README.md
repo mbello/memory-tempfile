@@ -1,19 +1,22 @@
 # Overview
 
+**LINUX ONLY**
+
 Often there is a need to temporarily save a file to 'disk' for the consumption of external tools. Or maybe you can pipe some input info to an external tool
 but has no way of forcing such external tool to pipe its output straight to your software: **it wants to write a file to disk**.
 Disk operations are slow and if repeated too often can shorten the lifespan of underlying media.
 
-On Linux, most distributions offer a /tmp directory BUT it is on physical media. However, modern distributions often offer at east two
+On Linux, most distributions offer a /tmp directory BUT it is usually on physical media. However, modern distributions often offer at east two
 places where one can safely create temporary files in RAM: /dev/run/<uid>, /run/shm and /dev/shm
 
 /dev/run/<uid> is ideal for your temporary files. It is writable and readable only by your user.
-/dev/shm is usually world-readable and world-writable (just like /tmp), it is often used for IPC (inter process communication) but can also serve well as a temporary RAM-based tempdir
+/dev/shm is usually world-readable and world-writable (just like /tmp), it is often used for IPC (inter process communication) and can serve well as a temporary RAM-based tempdir.
 
 This module is very simple and tries not to reinvent the wheel. It will check /tmp to see if it in a ramdisk or not. And it will also check
 if you have other options where to place your temporary files/dirs on a memory-based file system like tmpfs or ramfs.
 
-With this info you are well served by python's builtin modules and external packages like pathlib or pyfilesystem2 to move on to do your things.   
+Once you know the suitable path on a memory-based file system where you can have your files, you are well served by python's builtin modules and external packages like pathlib
+or pyfilesystem2 to move on to do your things.
 
 **To know more, I recommend the following links:**
 https://unix.stackexchange.com/questions/162900/what-is-this-folder-run-user-1000
@@ -31,6 +34,26 @@ You can change the order of paths (with 'preferred_paths'), add new paths to the
 You can change the filesystem types you accept (with filesystem_types) and specify whether or not to fallback to a vanilla tempdir as a last resort.
 
 Then, all methods available from tempfile stdlib are available through MemoryTempfile.
+
+# The constructor:
+
+**Here is the list of accepted parameters:**
+- preferred_paths: list or str = None
+- remove_paths: list or str or bool = None
+- additional_paths: list or str = None
+- filesystem_types: list or str = None
+- fallback: str or bool = None
+
+The path list that will be searched from first to last item will be constructed using the algorith:
+
+    paths = preferred_paths + (SUITABLE_PATHS - remove_paths) + additional_paths
+
+If remove_paths is boolean 'true', SUITABLE_PATHS will be eliminated, this is a way for you to take complete control of the path list
+that will be used without relying on this package's hardcoded constants.
+
+The only other hardcoded constant MEM_BASED_FS=['tmpfs', 'ramfs'] will not be used at all if you pass your own 'filesystem_types' argument.
+By the way, if you wish to add other file system types, you must match what Linux uses in /proc/self/mountinfo (at the 9th column).
+
 
 # Usage
 

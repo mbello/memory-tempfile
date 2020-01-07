@@ -34,3 +34,7 @@ def example2():
     with tempfile.NamedTemporaryFile() as ntf:
         # use it as usual...
         pass
+
+
+example1()
+example2()
