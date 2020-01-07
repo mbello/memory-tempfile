@@ -13,7 +13,7 @@ places where one can safely create temporary files in RAM: /dev/run/<uid>, /run/
 This module is very simple and tries not to reinvent the wheel. It will check /tmp to see if it in a ramdisk or not. And it will also check
 if you have other options where to place your temporary files/dirs on a memory-based file system like tmpfs or ramfs.
 
-With this info you are well served by pythons builtin modules and external packages like pathlib or pyfilesystem2 to move on to do your things.   
+With this info you are well served by python's builtin modules and external packages like pathlib or pyfilesystem2 to move on to do your things.   
 
 **To know more, I recommend the following links:**
 https://unix.stackexchange.com/questions/162900/what-is-this-folder-run-user-1000
@@ -21,15 +21,13 @@ https://superuser.com/questions/45342/when-should-i-use-dev-shm-and-when-should-
 
 
 # API
-This module searches for paths hosted on filesystems of type belonging to MEM_BASED_FS ('tmpfs' or 'ramfs').
-Paths in SUITABLE_PATHS are searched and the first path found that exists and is stored on a filesystem whose type 
-belongs to MEM_BASED_FS will be used as the tempdir.
+This module searches for paths hosted on filesystems of type belonging to MEM_BASED_FS=['tmpfs', 'ramfs']
+Paths in SUITABLE_PATHS=['/tmp', '/run/user/{uid}', '/run/shm', '/dev/shm'] are searched and the first path found that exists and is stored on a filesystem whose type belongs to MEM_BASED_FS will be used as the tempdir.
 If no suitable path is found, then if fallback = True, we will fallback to default tempdir (as determined by tempfile stdlib). If fallback is a path, then we will default to it.
 If fallback is false, a RunTimeError exception is raised.
 
-The MemoryTempfile constructor has arguments that let you change how the algorith works.
-You can change the order of paths (with preferred_paths), add new paths to the seach (with preferred_paths and/or with additional_paths) 
-and you can exclude certain paths (with removed_paths).
+The MemoryTempfile constructor has arguments that let you change how the algorithm works.
+You can change the order of paths (with 'preferred_paths'), add new paths to the search (with 'preferred_paths' and/or with 'additional_paths') and you can exclude certain paths from SUITABLE_PATHS (with removed_paths). All paths containing the string {uid} will have it replaced by the user id.
 You can change the filesystem types you accept (with filesystem_types) and specify whether or not to fallback to a vanilla tempdir as a last resort.
 
 Then, all methods available from tempfile stdlib are available through MemoryTempfile.
@@ -42,7 +40,7 @@ Then, all methods available from tempfile stdlib are available through MemoryTem
     
     tempfile = MemoryTempfile()
     
-    with tempfile.TemporaryFile() as 
+    with tempfile.TemporaryFile() as tf:
         # as usual...
         
 ## Example 2:
