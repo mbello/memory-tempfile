@@ -1,7 +1,5 @@
 # Overview
 
-**LINUX ONLY**
-
 Often there is a need to temporarily save a file to 'disk' for the consumption of external tools. Or maybe you can pipe some input info to an external tool
 but has no way of forcing such external tool to pipe its output straight to your software: **it wants to write a file to disk**.
 Disk operations are slow and if repeated too often can shorten the lifespan of underlying media.
@@ -54,6 +52,11 @@ that will be used without relying on this package's hardcoded constants.
 The only other hardcoded constant MEM_BASED_FS=['tmpfs', 'ramfs'] will not be used at all if you pass your own 'filesystem_types' argument.
 By the way, if you wish to add other file system types, you must match what Linux uses in /proc/self/mountinfo (at the 9th column).
 
+# Requirements
+
+- Python 3
+- Works only on Linux
+- Compatible with chroot and/or namespaces, needs access to /proc/self/mountinfo
 
 # Usage
 
