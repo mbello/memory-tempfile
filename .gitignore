@@ -2,6 +2,7 @@
 *.tex
 *.log
 *.pdf
+new_release.sh
 
 # Packages
 *.egg
