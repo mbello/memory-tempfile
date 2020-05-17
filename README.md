@@ -4,7 +4,7 @@ Often there is a need to temporarily save a file to 'disk' for the consumption o
 but has no way of forcing such external tool to pipe its output straight to your software: **it wants to write a file to disk**.
 Disk operations are slow and if repeated too often can shorten the lifespan of underlying media.
 
-On Linux, most distributions offer a /tmp directory BUT it is usually on physical media. However, modern distributions often offer at east two
+On Linux, most distributions offer a /tmp directory BUT it is usually on physical media. However, modern distributions often offer at least two
 places where one can safely create temporary files in RAM: /dev/run/<uid>, /run/shm and /dev/shm
 
 /dev/run/<uid> is ideal for your temporary files. It is writable and readable only by your user.
