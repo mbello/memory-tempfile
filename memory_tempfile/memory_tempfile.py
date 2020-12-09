@@ -51,7 +51,7 @@ class MemoryTempfile:
                     dev = os.stat(path).st_dev
                     major, minor = os.major(dev), os.minor(dev)
                     mp = mnt_info.get("{}:{}".format(major, minor))
-                    if mp and mp[8] in self.filesystem_types:
+                    if mp and mp[mp.index("-",6)+1] in self.filesystem_types:
                         self.usable_paths[path] = mp
                 except FileNotFoundError:
                     pass
