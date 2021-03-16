@@ -42,7 +42,7 @@ Then, all methods available from tempfile stdlib are available through MemoryTem
 - filesystem_types: list = None
 - fallback: str or bool = None
 
-The path list that will be searched from first to last item will be constructed using the algorith:
+The path list that will be searched from first to last item will be constructed using the algorithm:
 
     paths = preferred_paths + (SUITABLE_PATHS - remove_paths) + additional_paths
 
