@@ -84,7 +84,7 @@ By the way, if you wish to add other file system types, you must match what Linu
                               additional_paths=['/var/run'], filesystem_types=['tmpfs'], fallback=True)
     
     if tempfile.found_mem_tempdir():
-        print('We could use any of the followig paths: {}'.format(tempfile.get_usable_mem_tempdir_paths()))
+        print('We could use any of the following paths: {}'.format(tempfile.get_usable_mem_tempdir_paths()))
         print('And we are using now: {}'.format(tempfile.gettempdir()))
     
     with tempfile.NamedTemporaryFile() as ntf:
