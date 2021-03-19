@@ -20,6 +20,7 @@ class MemoryTempfile:
         else:
             self.fallback = fallback
 
+        self.usable_paths = OrderedDict()
         if platform.system() == "Linux":
             self.filesystem_types = list(filesystem_types) if filesystem_types is not None else MEM_BASED_FS
             
@@ -39,7 +40,6 @@ class MemoryTempfile:
             with open('/proc/self/mountinfo', 'r') as file:
                 mnt_info = {i[2]: i for i in [line.split() for line in file]}
             
-            self.usable_paths = OrderedDict()
             for path in self.suitable_paths:
                 path = path.replace('{uid}', str(uid))
                 
@@ -58,14 +58,14 @@ class MemoryTempfile:
             
             for key in [k for k, v in self.usable_paths.items() if not v]:
                 del self.usable_paths[key]
-            
-            if len(self.usable_paths) > 0:
-                self.tempdir = next(iter(self.usable_paths.keys()))
+
+        if len(self.usable_paths) > 0:
+            self.tempdir = next(iter(self.usable_paths.keys()))
+        else:
+            if fallback:
+                self.tempdir = self.fallback
             else:
-                if fallback:
-                    self.tempdir = self.fallback
-                else:
-                    raise RuntimeError('No memory temporary dir found and fallback is disabled.')
+                raise RuntimeError('No memory temporary dir found and fallback is disabled.')
 
     def found_mem_tempdir(self):
         return len(self.usable_paths) > 0
